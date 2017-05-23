@@ -1,10 +1,6 @@
 import subdomainScan
 import threading
 import thread
-
-
-'''
-
 import optparse
 
 parser = optparse.OptionParser()
@@ -33,7 +29,7 @@ parser.add_option('-t', '--threads',
 
 options, args = parser.parse_args()
 
-
+#For parsing commandline arguments 
 
 domain=options.domain
 charset=bytearray(options.charset)
@@ -43,17 +39,12 @@ filename=options.filename
 numThread=int(options.numThread)
 
 
-'''
-domain="facebook.com"
-charset=bytearray("abcdefghijklmnopqrstuvwxyz1234567890-")
-maxlen=5
-minlen=1
-filename="out.txt"
-numThread=5
 
-tempList=list()
 
-for i in xrange(numThread):
+
+tempList=list()         #list of starting query for each thread
+
+for i in xrange(numThread):   #dividing query for each thread
     temp=bytearray()
     if(i==0):
         for j in xrange(minlen):
@@ -67,7 +58,7 @@ for i in xrange(numThread):
     print(temp)
 
 
-temp=bytearray()    
+temp=bytearray()    #last query
 for i in xrange(maxlen):
     temp.append(charset[-1])
 print(temp)
@@ -75,17 +66,6 @@ print(temp)
 
 for i in xrange(len(tempList)-1):
     threading.Thread(target=subdomainScan.scan,args=(charset,5,domain,tempList[i],tempList[i+1])).start()
-
-'''
-thread.start_new_thread(subdomainScan.scan(charset,5,domain,temp3))
-#thread.start_new_thread(subdomainScan.scan(charset,5,domain,temp4))
-
-
-t1=thread.thread(target=subdomainScan.scan,args=(charset,5,domain,temp1))
-t2=Thread(target=subdomainScan.scan,args=(charset,5,domain,temp2))
-t3=Thread(target=subdomainScan.scan,args=(charset,5,domain,temp3))
-t4=Thread(target=subdomainScan.scan,args=(charset,5,domain,temp4))
-'''
 
 
 
