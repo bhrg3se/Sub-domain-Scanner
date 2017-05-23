@@ -5,7 +5,7 @@ res=dns.resolver.Resolver()
 def scan(charset,maxlen,domain,temp,stop):
     
     br=bruteforce.BruteForce(temp,maxlen,charset,stop)
-    while(len(br.getTemp())<maxlen):
+    while(len(br.getTemp())<=maxlen and br.completed==False):
         url=br.getTemp()+"."+domain
         #print("Checking "+url)
         try:
@@ -17,4 +17,4 @@ def scan(charset,maxlen,domain,temp,stop):
             pass
         
         br.incr(-1)
-    print("Done")    
+    print("Done"+" "+temp+" "+stop)    
